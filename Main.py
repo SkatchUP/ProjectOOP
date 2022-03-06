@@ -10,5 +10,7 @@ print('тест слияния')
 # павролролдаывп
 # роалвпрволаолыварловап
 # bjkdbbjbgd
-# Гоша крутой
+# Гоша крутойkuytfdfgh
 # test
+# test live share
+guf
