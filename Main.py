@@ -1,5 +1,4 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMessageBox, QWidget
 
 import sys
 
@@ -68,8 +67,6 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.reg()
-
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -79,93 +76,6 @@ class Ui_MainWindow(object):
         self.label_login.setText(_translate("MainWindow", "Логин:"))
         self.label_password.setText(_translate("MainWindow", "Пароль:"))
         self.btn_register.setText(_translate("MainWindow", "Зарегестрироваться"))
-
-    def reg(self):
-        self.btn_register.clicked.connect(self.dialog_register)
-
-
-    def dialog_register(self):
-        class Ui_Register(object):
-            def setupUi(self, Register):
-                Register.setObjectName("Register")
-                Register.resize(600, 800)
-                Register.setStyleSheet("background-color: rgb(67, 67, 67)")
-                self.textEdit_3 = QtWidgets.QTextEdit(Register)
-                self.textEdit_3.setGeometry(QtCore.QRect(300, 400, 160, 30))
-                font = QtGui.QFont()
-                font.setPointSize(12)
-                self.textEdit_3.setFont(font)
-                self.textEdit_3.setStyleSheet("background-color: rgb(255, 255, 255)")
-                self.textEdit_3.setObjectName("textEdit_3")
-                self.label = QtWidgets.QLabel(Register)
-                self.label.setGeometry(QtCore.QRect(230, 302, 60, 23))
-                font = QtGui.QFont()
-                font.setPointSize(14)
-                self.label.setFont(font)
-                self.label.setStyleSheet("color: rgb(255, 255, 255)")
-                self.label.setObjectName("label")
-                self.label_eda = QtWidgets.QLabel(Register)
-                self.label_eda.setGeometry(QtCore.QRect(190, 90, 221, 100))
-                font = QtGui.QFont()
-                font.setFamily("SF Collegiate")
-                font.setPointSize(47)
-                self.label_eda.setFont(font)
-                self.label_eda.setLayoutDirection(QtCore.Qt.LeftToRight)
-                self.label_eda.setStyleSheet("color: rgb(255, 255, 255)")
-                self.label_eda.setObjectName("label_eda")
-                self.label_2 = QtWidgets.QLabel(Register)
-                self.label_2.setGeometry(QtCore.QRect(220, 352, 72, 23))
-                font = QtGui.QFont()
-                font.setPointSize(14)
-                self.label_2.setFont(font)
-                self.label_2.setStyleSheet("color: rgb(255, 255, 255)")
-                self.label_2.setObjectName("label_2")
-                self.label_3 = QtWidgets.QLabel(Register)
-                self.label_3.setGeometry(QtCore.QRect(70, 402, 221, 23))
-                font = QtGui.QFont()
-                font.setPointSize(14)
-                self.label_3.setFont(font)
-                self.label_3.setStyleSheet("color: rgb(255, 255, 255)")
-                self.label_3.setObjectName("label_3")
-                self.textEdit_2 = QtWidgets.QTextEdit(Register)
-                self.textEdit_2.setGeometry(QtCore.QRect(300, 350, 160, 30))
-                font = QtGui.QFont()
-                font.setPointSize(12)
-                self.textEdit_2.setFont(font)
-                self.textEdit_2.setStyleSheet("background-color: rgb(255, 255, 255)")
-                self.textEdit_2.setObjectName("textEdit_2")
-                self.textEdit = QtWidgets.QTextEdit(Register)
-                self.textEdit.setGeometry(QtCore.QRect(300, 300, 160, 30))
-                font = QtGui.QFont()
-                font.setPointSize(12)
-                self.textEdit.setFont(font)
-                self.textEdit.setStyleSheet("background-color: rgb(255, 255, 255)")
-                self.textEdit.setObjectName("textEdit")
-                self.pushButton = QtWidgets.QPushButton(Register)
-                self.pushButton.setGeometry(QtCore.QRect(200, 580, 200, 61))
-                self.pushButton.setStyleSheet("color: rgb(255, 255, 255); background-color: rgb(116, 116, 116)")
-                self.pushButton.setObjectName("pushButton")
-
-                self.retranslateUi(Register)
-                QtCore.QMetaObject.connectSlotsByName(Register)
-
-            def retranslateUi(self, Register):
-                # _translate = QtCore.QCoreApplication.translate
-                Register.setWindowTitle("Регистрация")
-                self.label.setText("Логин:")
-                self.label_eda.setText("eda-fit")
-                self.label_2.setText("Пароль:")
-                self.label_3.setText("Повторный ввод пароля:")
-                self.pushButton.setText("Готово")
-
-
-        if __name__ == "__main__":
-            app = QtWidgets.QApplication(sys.argv)
-            Register = QtWidgets.QDialog()
-            ui = Ui_Register()
-            ui.setupUi(Register)
-            Register.show()
-            sys.exit(app.exec_())
 
 
 if __name__ == "__main__":
