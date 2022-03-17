@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QMessageBox, QWidget
 import sys
 import Main
 import dialog
+import error_reg
 
 
 class DialogWindow(QtWidgets.QDialog, dialog.Ui_Register):
@@ -12,11 +13,6 @@ class DialogWindow(QtWidgets.QDialog, dialog.Ui_Register):
         super().__init__()
         self.setupUi(self)
         self.pushButton.clicked.connect(self.send_registration)
-
-    # def return_main_window(self):
-    #     self.close()
-    #     self.main = MainWindow()
-    #     self.main.show()
 
     def send_registration(self):
         login = self.textEdit.text()
@@ -27,6 +23,8 @@ class DialogWindow(QtWidgets.QDialog, dialog.Ui_Register):
             response = requests.post('http://127.0.0.1:5000/registration', json=data)
         except:
             return
+        if response.status_code == 228:
+            error_registration()
         if response.status_code == 400:
             self.textEdit.setText('Error')
             self.textEdit_2.setText('Error')
@@ -48,6 +46,22 @@ class MainWindow(QtWidgets.QMainWindow, Main.Ui_MainWindow):
         self.dialog = DialogWindow()
         self.dialog.show()
 
+
+class Errors(QtWidgets.QMessageBox, DialogWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+
+    def error_registration(self):
+        error_reg = QMessageBox()
+        error_reg.show()
+        error_reg.setIcon(QMessageBox.Error)
+        error_reg.setText('Ошибка при регистрации')
+        error_reg.setInformativeText('Пароли не совпадают')
+        error_reg.windowTitle('error')
+        error_reg.setStandardButtons(QMessageBox.OK)
+
+        error_reg.exec_()
 
 app = QtWidgets.QApplication([])
 window = MainWindow()
