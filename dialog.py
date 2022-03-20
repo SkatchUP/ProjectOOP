@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QMessageBox, QWidget
 import sys
 
 
-
+# wuhfwo
 class Ui_Register(object):
     def setupUi(self, Register):
         Register.setObjectName("Register")
