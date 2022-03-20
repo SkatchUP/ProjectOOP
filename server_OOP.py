@@ -3,7 +3,7 @@ import threading
 
 import requests
 from flask import Flask, request, Response, redirect, render_template, session
-import Functionals
+# import Functionals
 from datetime import datetime
 app = Flask(__name__)
 
