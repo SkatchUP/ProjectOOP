@@ -22,7 +22,7 @@ def register():
     if password == chek_password:
         full_info = {'login': login, 'password': password, 'chek_password': chek_password}
     else:
-        return Response(status=228)
+        return Response(status=401)
     if full_info['login'] == '' or full_info['password'] == '' or full_info['chek_password'] == '':
         return Response(status=400)
     else:

@@ -36,7 +36,7 @@ class DialogWindow(dialog.Ui_Register, QtWidgets.QDialog):
             response = requests.post('http://127.0.0.1:5000/registration', json=data)
         except:
             return
-        if response.status_code == 228:
+        if response.status_code == 401:
             error = Errors()
             error.error_registration()
         elif response.status_code == 400:
@@ -48,7 +48,6 @@ class DialogWindow(dialog.Ui_Register, QtWidgets.QDialog):
             self.main = MainWindow()
             self.main.show()
 
-# из functionals_new
 
 class MainWindow(QtWidgets.QMainWindow, Main.Ui_MainWindow):
     def __init__(self):
@@ -62,51 +61,7 @@ class MainWindow(QtWidgets.QMainWindow, Main.Ui_MainWindow):
         self.start.show()
 
 
-# из functionals
-
-# class MainWindow(QtWidgets.QMainWindow, Main.Ui_MainWindow):
-#     def __init__(self):
-#         super().__init__()
-#         self.setupUi(self)
-#         self.btn_register.clicked.connect(self.start_dialog)
-
-#     def start_dialog(self):
-#         self.close()
-#         self.dialog = DialogWindow()
-#         self.dialog.show()
-
-
-
-
-
-
-
-
-# наше
-
-class Register(dialog.Ui_Register):
-    def __init__(self):
-        super().setupUi(self)
-
-
-# if __name__ == "__main__":
-#     app = QtWidgets.QApplication(sys.argv)
-#     MainWindow = QtWidgets.QMainWindow()
-#     ui = Main.Ui_MainWindow()
-#     ui.setupUi(MainWindow)
-#     MainWindow.show()
-#     sys.exit(app.exec_())
-
-
 app = QtWidgets.QApplication([])
 window = MainWindow()
 window.show()
 app.exec_()
-
-
-# app = MainWindow()
-# app.show()
-# app = QtWidgets.QApplication([])
-# window = MainWindow()
-# window.show()
-# app.exec_()
