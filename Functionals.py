@@ -10,7 +10,7 @@ import dialog
 class Errors(QtWidgets.QMessageBox):
     def __init__(self):
         super().__init__()
-        self.setupUi(self)
+        # self.setupUi(self)
 
     def error_registration(self):
         error_reg = QMessageBox()
@@ -20,11 +20,10 @@ class Errors(QtWidgets.QMessageBox):
         error_reg.setInformativeText('Пароли не совпадают')
         error_reg.windowTitle('error')
         error_reg.setStandardButtons(QMessageBox.OK)
-
         error_reg.exec_()
 
 
-class DialogWindow(Errors, QtWidgets.QDialog, dialog.Ui_Register):
+class DialogWindow(dialog.Ui_Register, Errors, QtWidgets.QDialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
