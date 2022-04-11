@@ -20,10 +20,10 @@ def register():
     password = request.json['password']
     chek_password = request.json['return_password']
     if password == chek_password:
-        full_info = {'login': login, 'password': password, 'chek_password': chek_password}
+        full_info = {'login': login, 'password': password}
     else:
         return Response(status=401)
-    if full_info['login'] == '' or full_info['password'] == '' or full_info['chek_password'] == '':
+    if login == '' or password == '' or chek_password == '':
         return Response(status=400)
     else:
         users.append(full_info)

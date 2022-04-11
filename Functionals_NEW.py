@@ -3,8 +3,10 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox, QWidget, QApplication, QDialog
 
 import sys
+import math_func
 import Main
 import dialog
+import our_imt
 
 class Errors(QtWidgets.QMessageBox):
     def __init__(self):
@@ -21,11 +23,22 @@ class Errors(QtWidgets.QMessageBox):
         error_reg.exec_()
 
 
+class IMT_window(QtWidgets.QMainWindow, our_imt.Ui_IMT):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+        self.btn_ready.clicked.connect(self.math)
+    
+    def math(self):
+        math_func.imt(self)
+
+
 class DialogWindow(dialog.Ui_Register, QtWidgets.QDialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.pushButton.clicked.connect(self.send_registration)
+        self.btn_back.clicked.connect(self.returnback)
 
     def send_registration(self):
         login = self.textEdit.text()
@@ -48,17 +61,29 @@ class DialogWindow(dialog.Ui_Register, QtWidgets.QDialog):
             self.main = MainWindow()
             self.main.show()
 
+    def returnback(self):
+        self.close()
+        self.main = MainWindow()
+        self.main.show()
+
 
 class MainWindow(QtWidgets.QMainWindow, Main.Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.btn_register.clicked.connect(self.open_reg)
+        self.btn_next1.clicked.connect(self.next_step)
 
     def open_reg(self):
         self.close()
         self.start = DialogWindow()
         self.start.show()
+    
+    def next_step(self):
+        self.close()
+        self.open = IMT_window()
+        self.open.show()
+
 
 
 app = QtWidgets.QApplication([])
