@@ -8,6 +8,7 @@ import Main
 import dialog
 import our_imt
 
+# класс со всеми вылезающими ошибками
 class Errors(QtWidgets.QMessageBox):
     def __init__(self):
         super().__init__()
@@ -22,7 +23,7 @@ class Errors(QtWidgets.QMessageBox):
         error_reg.show()
         error_reg.exec_()
 
-
+# окно рачета ИМТ
 class IMT_window(QtWidgets.QMainWindow, our_imt.Ui_IMT):
     def __init__(self):
         super().__init__()
@@ -32,7 +33,7 @@ class IMT_window(QtWidgets.QMainWindow, our_imt.Ui_IMT):
     def math(self):
         math_func.imt(self)
 
-
+# окно регистрации
 class DialogWindow(dialog.Ui_Register, QtWidgets.QDialog):
     def __init__(self):
         super().__init__()
@@ -66,7 +67,7 @@ class DialogWindow(dialog.Ui_Register, QtWidgets.QDialog):
         self.main = MainWindow()
         self.main.show()
 
-
+# стартовое окно
 class MainWindow(QtWidgets.QMainWindow, Main.Ui_MainWindow):
     def __init__(self):
         super().__init__()
@@ -83,7 +84,6 @@ class MainWindow(QtWidgets.QMainWindow, Main.Ui_MainWindow):
         self.close()
         self.open = IMT_window()
         self.open.show()
-
 
 
 app = QtWidgets.QApplication([])
