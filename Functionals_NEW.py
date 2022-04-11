@@ -1,7 +1,6 @@
 import requests
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox, QWidget, QApplication, QDialog
-from flask import Response
 
 import sys
 import math_func
@@ -43,7 +42,8 @@ class IMT_window(QtWidgets.QMainWindow, interface.our_imt.Ui_IMT):
     
     def math(self):
         if self.textEdit_height.text() == '' or self.textEdit_weight.text() == '':
-            return Response(status=402)
+            error = Errors()
+            error.error_imt_compute()
         else:
             math_func.imt(self)
 
@@ -71,9 +71,6 @@ class DialogWindow(interface.dialog.Ui_Register, QtWidgets.QDialog):
             self.textEdit.setText('Error')
             self.textEdit_2.setText('Error')
             self.textEdit_3.setText('Error')
-        elif response.status_code == 402:
-            error = Errors()
-            error.error_imt_compute()
         else:
             self.close()
             self.main = MainWindow()
