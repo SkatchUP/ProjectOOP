@@ -1,6 +1,7 @@
 import requests
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox, QWidget, QApplication, QDialog
+from flask import Response
 
 import sys
 import math_func
@@ -41,7 +42,10 @@ class IMT_window(QtWidgets.QMainWindow, interface.our_imt.Ui_IMT):
         self.btn_ready.clicked.connect(self.math)
     
     def math(self):
-        math_func.imt(self)
+        if self.textEdit_height.text() == '' or self.textEdit_weight.text() == '':
+            return Response(status=402)
+        else:
+            math_func.imt(self)
 
 # окно регистрации
 class DialogWindow(interface.dialog.Ui_Register, QtWidgets.QDialog):
