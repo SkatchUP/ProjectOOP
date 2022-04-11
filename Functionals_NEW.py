@@ -23,7 +23,7 @@ class Errors(QtWidgets.QMessageBox):
         error_reg.setStandardButtons(QMessageBox.Ok)
         error_reg.show()
         error_reg.exec_()
-    
+
     def error_imt_compute(self):
         error_imt = QMessageBox()
         error_imt.setWindowTitle('Error')
@@ -71,6 +71,9 @@ class DialogWindow(interface.dialog.Ui_Register, QtWidgets.QDialog):
             self.textEdit.setText('Error')
             self.textEdit_2.setText('Error')
             self.textEdit_3.setText('Error')
+        elif response.status_code == 402:
+            error = Errors()
+            error.error_imt_compute()
         else:
             self.close()
             self.main = MainWindow()
