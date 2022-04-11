@@ -6,7 +6,7 @@ import sys
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(601, 800)
+        MainWindow.resize(600, 800)
         MainWindow.setMinimumSize(QtCore.QSize(600, 800))
         MainWindow.setMaximumSize(QtCore.QSize(600, 800))
         MainWindow.setStyleSheet("background-color: rgb(67, 67, 67);")

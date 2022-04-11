@@ -2,18 +2,12 @@ import time
 import threading
 
 import requests
-from flask import Flask, request, Response, redirect, render_template, session
+from flask import Flask, request, Response, session
 from flask_sqlalchemy import SQLAlchemy
+import create_db
 # import Functionals
 from datetime import datetime
 app = Flask(__name__)
-app.config['SQLAlCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-
-db = SQLAlchemy(app)
-
-class Users(db.Model):
-    login = db.Column(db.String(30), primary_key=True, nullable=False)
-    password = db.Column(db.String(), primary_key=False, nullable=False)
 
 
 @app.route('/')
@@ -27,15 +21,12 @@ def register():
     password = request.json['password']
     chek_password = request.json['return_password']
     if password == chek_password:
-        full_info = {'login': login, 'password': password}
+        create_db.add_users(login, password)
+        return Response(status=200)
     else:
         return Response(status=401)
     if login == '' or password == '' or chek_password == '':
         return Response(status=400)
-    else:
-        users.append(full_info)
-        print(full_info)
-        print(users)
-        return Response(status=200)
+
 
 app.run()
