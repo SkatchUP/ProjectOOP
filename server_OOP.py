@@ -3,11 +3,18 @@ import threading
 
 import requests
 from flask import Flask, request, Response, redirect, render_template, session
+from flask_sqlalchemy import SQLAlchemy
 # import Functionals
 from datetime import datetime
 app = Flask(__name__)
+app.config['SQLAlCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 
-users = []
+db = SQLAlchemy(app)
+
+class Users(db.Model):
+    login = db.Column(db.String(30), primary_key=True, nullable=False)
+    password = db.Column(db.String(), primary_key=False, nullable=False)
+
 
 @app.route('/')
 def start():

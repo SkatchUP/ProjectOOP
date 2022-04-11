@@ -4,9 +4,9 @@ from PyQt5.QtWidgets import QMessageBox, QWidget, QApplication, QDialog
 
 import sys
 import math_func
-import Main
-import dialog
-import our_imt
+import interface.Main
+import interface.dialog
+import interface.our_imt
 
 # класс со всеми вылезающими ошибками
 class Errors(QtWidgets.QMessageBox):
@@ -22,9 +22,19 @@ class Errors(QtWidgets.QMessageBox):
         error_reg.setStandardButtons(QMessageBox.Ok)
         error_reg.show()
         error_reg.exec_()
+    
+    def error_imt_compute(self):
+        error_imt = QMessageBox()
+        error_imt.setWindowTitle('Error')
+        error_imt.setIcon(QMessageBox.Critical)
+        error_imt.setText('Ошибка расчета ИМТ')
+        error_imt.setInformativeText('Вы не ввели данные')
+        error_imt.setStandardButtons(QMessageBox.Ok)
+        error_imt.show()
+        error_imt.exec_()
 
 # окно рачета ИМТ
-class IMT_window(QtWidgets.QMainWindow, our_imt.Ui_IMT):
+class IMT_window(QtWidgets.QMainWindow, interface.our_imt.Ui_IMT):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -34,7 +44,7 @@ class IMT_window(QtWidgets.QMainWindow, our_imt.Ui_IMT):
         math_func.imt(self)
 
 # окно регистрации
-class DialogWindow(dialog.Ui_Register, QtWidgets.QDialog):
+class DialogWindow(interface.dialog.Ui_Register, QtWidgets.QDialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -68,7 +78,7 @@ class DialogWindow(dialog.Ui_Register, QtWidgets.QDialog):
         self.main.show()
 
 # стартовое окно
-class MainWindow(QtWidgets.QMainWindow, Main.Ui_MainWindow):
+class MainWindow(QtWidgets.QMainWindow, interface.Main.Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
