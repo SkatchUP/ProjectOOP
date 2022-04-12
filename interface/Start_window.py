@@ -80,8 +80,8 @@ class Ui_StartWindow(object):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    Register = QtWidgets.QMainWindow()
+    ui = Ui_StartWindow()
+    ui.setupUi(Register)
+    Register.show()
     sys.exit(app.exec_())
