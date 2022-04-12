@@ -3,7 +3,6 @@ import threading
 
 import requests
 from flask import Flask, request, Response, session
-from flask_sqlalchemy import SQLAlchemy
 import create_db
 # import Functionals
 from datetime import datetime

@@ -4,9 +4,16 @@ from PyQt5.QtWidgets import QMessageBox, QWidget, QApplication, QDialog
 
 import sys
 import math_func
-import interface.Main
+import interface.Main_app
+import interface.Start_window
 import interface.dialog
 import interface.our_imt
+
+# основное окно
+class MainAPP(QtWidgets.QMainWindow, interface.Main_app.Ui_Main_app):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
 
 # класс со всеми вылезающими ошибками
 class Errors(QtWidgets.QMessageBox):
@@ -46,6 +53,9 @@ class IMT_window(QtWidgets.QMainWindow, interface.our_imt.Ui_IMT):
             error.error_imt_compute()
         else:
             math_func.imt(self)
+            self.close()
+            self.app = MainAPP()
+            self.app.show()
 
 # окно регистрации
 class DialogWindow(interface.dialog.Ui_Register, QtWidgets.QDialog):
@@ -73,16 +83,16 @@ class DialogWindow(interface.dialog.Ui_Register, QtWidgets.QDialog):
             self.textEdit_3.setText('Error')
         else:
             self.close()
-            self.main = MainWindow()
+            self.main = StartWindow()
             self.main.show()
 
     def returnback(self):
         self.close()
-        self.main = MainWindow()
+        self.main = StartWindow()
         self.main.show()
 
 # стартовое окно
-class MainWindow(QtWidgets.QMainWindow, interface.Main.Ui_MainWindow):
+class StartWindow(QtWidgets.QMainWindow, interface.Start_window.Ui_StartWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -101,6 +111,6 @@ class MainWindow(QtWidgets.QMainWindow, interface.Main.Ui_MainWindow):
 
 
 app = QtWidgets.QApplication([])
-window = MainWindow()
+window = StartWindow()
 window.show()
 app.exec_()
