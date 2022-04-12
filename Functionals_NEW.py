@@ -1,19 +1,23 @@
+from urllib import response
 import requests
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox, QWidget, QApplication, QDialog
 
 import sys
 import math_func
-import interface.Main_app
+import Main_app
 import interface.Start_window
 import interface.dialog
 import interface.our_imt
 
 # основное окно
-class MainAPP(QtWidgets.QMainWindow, interface.Main_app.Ui_Main_app):
-    def __init__(self):
+class MainAPP(QtWidgets.QMainWindow, Main_app.Ui_Main_app):
+    def __init__(self, id):
         super().__init__()
         self.setupUi(self)
+        self.id_user = id
+        self.label_login.setObjectName(f'user_{self.id_user}')
+
 
 # класс со всеми вылезающими ошибками
 class Errors(QtWidgets.QMessageBox):
@@ -46,6 +50,11 @@ class IMT_window(QtWidgets.QMainWindow, interface.our_imt.Ui_IMT):
         super().__init__()
         self.setupUi(self)
         self.btn_ready.clicked.connect(self.math)
+        try:
+            get_response = requests.get('http://127.0.0.1:5000/sign_in').json()
+        except:
+            return
+        self.label_eda.setObjectName(f"user_{get_response['id_login'][0]}")
     
     def math(self):
         if self.textEdit_height.text() == '' or self.textEdit_weight.text() == '':
@@ -54,7 +63,7 @@ class IMT_window(QtWidgets.QMainWindow, interface.our_imt.Ui_IMT):
         else:
             math_func.imt(self)
             self.close()
-            self.app = MainAPP()
+            self.app = MainAPP(self.label_eda.ObjectName())
             self.app.show()
 
 # окно регистрации
@@ -103,11 +112,20 @@ class StartWindow(QtWidgets.QMainWindow, interface.Start_window.Ui_StartWindow):
         self.close()
         self.start = DialogWindow()
         self.start.show()
-    
+
     def next_step(self):
-        self.close()
-        self.open = IMT_window()
-        self.open.show()
+        login = self.login.text()
+        password = self.password.text()
+        data = {'login': login, 'password': password}
+        try: 
+            response = requests.post('http://127.0.0.1:5000/sign_in', json=data)
+        except:
+            return
+
+        if response.status_code == 200:
+            self.close()
+            self.open = IMT_window()
+            self.open.show()
 
 
 app = QtWidgets.QApplication([])

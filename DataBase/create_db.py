@@ -52,4 +52,20 @@ def add_imt_users(id_imt):
     close()
 
 
+def login_id(login):
+    open()
+    cursor.execute('SELECT id from users WHERE login=?', [login])
+    result = cursor.fetchone()
+    close()
+    return result
+
+
+def chek_log_pas_id(login, password):
+    open()
+    cursor.execute('SELECT id from users WHERE login=? AND password=?', [login, password])
+    result = cursor.fetchone()
+    close()
+    return result
+
+
 create()
