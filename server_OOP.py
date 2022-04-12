@@ -3,7 +3,7 @@ import threading
 
 import requests
 from flask import Flask, request, Response, session
-import create_db
+import DataBase.create_db
 # import Functionals
 from datetime import datetime
 app = Flask(__name__)
@@ -20,7 +20,7 @@ def register():
     password = request.json['password']
     chek_password = request.json['return_password']
     if password == chek_password:
-        create_db.add_users(login, password)
+        DataBase.create_db.add_users(login, password)
         return Response(status=200)
     elif login == '' or password == '' or chek_password == '':
         return Response(status=400)
