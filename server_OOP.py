@@ -22,10 +22,10 @@ def register():
     if password == chek_password:
         create_db.add_users(login, password)
         return Response(status=200)
+    elif login == '' or password == '' or chek_password == '':
+        return Response(status=400)
     else:
         return Response(status=401)
-    if login == '' or password == '' or chek_password == '':
-        return Response(status=400)
 
 
 app.run()
