@@ -1,12 +1,8 @@
-import time
-import threading
-
-import requests
-from flask import Flask, request, Response, session
+from flask import Flask, request, Response
 import DataBase.create_db
-# import Functionals
-from datetime import datetime
 app = Flask(__name__)
+
+
 global_login = ''
 
 

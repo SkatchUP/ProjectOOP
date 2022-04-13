@@ -1,7 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 import sys
-import math_func
 
 
 class Ui_IMT(object):

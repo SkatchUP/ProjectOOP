@@ -47,6 +47,16 @@ class Errors(QtWidgets.QMessageBox):
         error_imt.setStandardButtons(QMessageBox.Ok)
         error_imt.show()
         error_imt.exec_()
+    
+    def error_sign_in(self):
+        error_reg = QMessageBox()
+        error_reg.setWindowTitle('Error')
+        error_reg.setIcon(QMessageBox.Critical)
+        error_reg.setText('Ошибка при входе в акканут')
+        error_reg.setInformativeText('Логин и пароль не совпадают')
+        error_reg.setStandardButtons(QMessageBox.Ok)
+        error_reg.show()
+        error_reg.exec_()
 
 # окно рачета ИМТ
 class IMT_window(QtWidgets.QMainWindow, interface.our_imt.Ui_IMT):

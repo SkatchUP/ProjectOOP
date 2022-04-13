@@ -1,44 +1,8 @@
-import sys
-from PyQt5.QtWidgets import QMainWindow, QAction, qApp, QApplication
-from PyQt5.QtGui import QIcon
+import interface.Start_window
+from PyQt5 import QtWidgets
 
 
-class Example(QMainWindow):
-
+class StartWindow(QtWidgets.QMainWindow, interface.Start_window.Ui_StartWindow):
     def __init__(self):
         super().__init__()
-
-        self.initUI()
-
-
-    def initUI(self):
-
-        exitAction = QAction(QIcon('exit.png'), '&Exit', self)
-        exitAction.setShortcut('Ctrl+Q')
-        exitAction.setStatusTip('Exit application')
-        exitAction.triggered.connect(self.test)
-
-        self.statusBar()
-
-        menubar = self.menuBar()
-        fileMenu = menubar.addMenu('&File')
-        fileMenu.addAction(exitAction)
-
-        self.setGeometry(300, 300, 300, 200)
-        self.setWindowTitle('Menubar')
-        self.show()
-
-    def test(self):
-        print('OK')
-
-
-# if __name__ == '__main__':
-
-#     app = QApplication(sys.argv)
-#     ex = Example()
-#     sys.exit(app.exec_())
-
-
-get_response = {'id_login': (2,)}
-id_user = f"user_{get_response['id_login'][0]}"
-print(id_user)
+        self.setupUi(self)
