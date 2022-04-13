@@ -44,9 +44,9 @@ def add_users(login, password):
     close()
 
 
-def add_imt_users(id_imt):
+def add_imt_users(id_imt, imt):
     open()
-    cursor.execute('INSERT INTO imt_users(id_imt) VALUES(?)', [id_imt])
+    cursor.execute('INSERT INTO imt_users(id_imt, imt) VALUES(?,?)', [id_imt, imt])
     conn.commit()
 
     close()
@@ -60,12 +60,29 @@ def login_id(login):
     return result
 
 
-def chek_log_pas_id(login, password):
+def chek_id_from_log_pas(login, password):
     open()
     cursor.execute('SELECT id from users WHERE login=? AND password=?', [login, password])
     result = cursor.fetchone()
     close()
+    print(result)
     return result
+
+
+def chek_imt_id(id_user):
+    open()
+    cursor.execute('SELECT imt from imt_users WHERE id_imt=?', [id_user])
+    result = cursor.fetchone()
+    close()
+    return result
+
+
+def change_imt(id, update_imt):
+    open()
+    cursor.execute('UPDATE imt_users SET imt=? WHERE id_imt=?', [update_imt, id])
+    conn.commit()
+
+    close()
 
 
 create()

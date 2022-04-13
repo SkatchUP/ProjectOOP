@@ -1,4 +1,3 @@
-from urllib import response
 import requests
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox, QWidget, QApplication, QDialog
@@ -17,6 +16,12 @@ class MainAPP(QtWidgets.QMainWindow, Main_app.Ui_Main_app):
         self.setupUi(self)
         self.id_user = id[5:]
         self.label_eat_month.setObjectName(f'user_{self.id_user}')
+        self.action_IMT.triggered.connect(self.new_imt)
+    
+    def new_imt(self):
+        self.close()
+        self.change_imt = IMT_window()
+        self.change_imt.show()
 
 # класс со всеми вылезающими ошибками
 class Errors(QtWidgets.QMessageBox):
@@ -54,16 +59,36 @@ class IMT_window(QtWidgets.QMainWindow, interface.our_imt.Ui_IMT):
         except:
             return
         self.label_eda.setObjectName(f"user_{get_response['id_login'][0]}")
-    
+        self.chek = f"user_{get_response['id_login'][0]}"
+
     def math(self):
         if self.textEdit_height.text() == '' or self.textEdit_weight.text() == '':
             error = Errors()
             error.error_imt_compute()
         else:
-            math_func.imt(self)
-            self.close()
-            self.app = MainAPP(self.label_eda.objectName())
-            self.app.show()
+            try: 
+                response = requests.post('http://127.0.0.1:5000/chek', json=self.chek)
+            except:
+                return
+            num_imt = math_func.imt(self)
+            if response.status_code == 200:
+                data = {'id_imt': self.label_eda.objectName(), 'imt': num_imt}
+                try:
+                    requests.post('http://127.0.0.1:5000/imt', json=data)
+                except:
+                    return
+                self.close()
+                self.app = MainAPP(self.label_eda.objectName())
+                self.app.show()
+            elif response.status_code == 300:
+                data = {'id_imt': self.label_eda.objectName(), 'changed_imt': num_imt}
+                try:
+                    requests.post('http://127.0.0.1:5000/change_imt', json=data)
+                except:
+                    return
+                self.close()
+                self.app = MainAPP(self.label_eda.objectName())
+                self.app.show()
 
 # окно регистрации
 class DialogWindow(interface.dialog.Ui_Register, QtWidgets.QDialog):
@@ -124,6 +149,15 @@ class StartWindow(QtWidgets.QMainWindow, interface.Start_window.Ui_StartWindow):
         if response.status_code == 200:
             self.close()
             self.open = IMT_window()
+            self.open.show()
+        elif response.status_code == 300:
+            try:
+                get_response = requests.get('http://127.0.0.1:5000/sign_in').json()
+            except:
+                return
+            id_user = f"user_{get_response['id_login'][0]}"
+            self.close()
+            self.open = MainAPP(id_user)
             self.open.show()
 
 

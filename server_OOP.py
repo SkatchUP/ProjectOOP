@@ -36,15 +36,45 @@ def sign_in():
         login = request.json['login']
         global_login = login
         password = request.json['password']
-        id_user = DataBase.create_db.chek_log_pas_id(login, password)
+        id_user = DataBase.create_db.chek_id_from_log_pas(login, password)
         if id_user:
-            db_login = DataBase.create_db.login_id(login)
-            return Response(status=200)
+            imt_id_user = DataBase.create_db.chek_imt_id(id_user[0])
+            if imt_id_user:
+                return Response(status=300)
+            else:
+                return Response(status=200)
         else:
             return Response(status=201)
     else:
         db_login = DataBase.create_db.login_id(global_login)
         return {'id_login': db_login}
-    
+
+
+@app.route('/imt', methods=['POST', 'GET'])
+def add_imt():
+    if request.method == 'POST':
+        id_imt = request.json['id_imt'][5:]
+        imt = request.json['imt']
+        DataBase.create_db.add_imt_users(id_imt, imt)
+    else:
+        pass
+
+
+@app.route('/change_imt', methods=['POST'])
+def change_imt():
+    id_imt = request.json['id_imt'][5:]
+    new_imt = request.json['changed_imt']
+    DataBase.create_db.change_imt(id_imt, new_imt)
+
+
+@app.route('/chek', methods=['POST'])
+def chek_imt_from_id():
+    id_user = request.json[5:]
+    imt_id_user = DataBase.create_db.chek_imt_id(id_user)
+    if imt_id_user:
+        return Response(status=300)
+    else:
+        return Response(status=200)
+
 
 app.run()

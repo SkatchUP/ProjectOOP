@@ -155,7 +155,11 @@ class Ui_Main_app(object):
         Main_app.setMenuBar(self.menuBar)
         self.action_IMT = QtWidgets.QAction(Main_app)
         self.action_IMT.setObjectName("action_IMT")
+        self.action_leave = QtWidgets.QAction(Main_app)
+        self.action_leave.setObjectName("action_leave")
         self.settings.addAction(self.action_IMT)
+        self.settings.addSeparator()
+        self.settings.addAction(self.action_leave)
         self.menuBar.addAction(self.settings.menuAction())
 
         self.retranslateUi(Main_app)
@@ -181,6 +185,7 @@ class Ui_Main_app(object):
         self.label_name_add_2.setText(_translate("Main_app", "Название"))
         self.settings.setTitle(_translate("Main_app", "Настройки"))
         self.action_IMT.setText(_translate("Main_app", "Изменить ИМТ"))
+        self.action_leave.setText(_translate("Main_app", "Выйти из профиля"))
 
 
 if __name__ == "__main__":
