@@ -15,9 +15,8 @@ class MainAPP(QtWidgets.QMainWindow, Main_app.Ui_Main_app):
     def __init__(self, id):
         super().__init__()
         self.setupUi(self)
-        self.id_user = id
-        self.label_login.setObjectName(f'user_{self.id_user}')
-
+        self.id_user = id[5:]
+        self.label_eat_month.setObjectName(f'user_{self.id_user}')
 
 # класс со всеми вылезающими ошибками
 class Errors(QtWidgets.QMessageBox):
@@ -63,7 +62,7 @@ class IMT_window(QtWidgets.QMainWindow, interface.our_imt.Ui_IMT):
         else:
             math_func.imt(self)
             self.close()
-            self.app = MainAPP(self.label_eda.ObjectName())
+            self.app = MainAPP(self.label_eda.objectName())
             self.app.show()
 
 # окно регистрации
