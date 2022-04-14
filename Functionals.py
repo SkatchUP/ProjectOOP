@@ -9,6 +9,7 @@ import interface.Start_window
 import interface.dialog
 import interface.our_imt
 
+
 # основное окно
 class MainAPP(QtWidgets.QMainWindow, Main_app.Ui_Main_app):
     def __init__(self, id):
@@ -22,6 +23,7 @@ class MainAPP(QtWidgets.QMainWindow, Main_app.Ui_Main_app):
         self.close()
         self.change_imt = IMT_window()
         self.change_imt.show()
+
 
 # класс со всеми вылезающими ошибками
 class Errors(QtWidgets.QMessageBox):
@@ -58,6 +60,7 @@ class Errors(QtWidgets.QMessageBox):
         error_reg.show()
         error_reg.exec_()
 
+
 # окно рачета ИМТ
 class IMT_window(QtWidgets.QMainWindow, interface.our_imt.Ui_IMT):
     def __init__(self):
@@ -77,7 +80,7 @@ class IMT_window(QtWidgets.QMainWindow, interface.our_imt.Ui_IMT):
             error.error_imt_compute()
         else:
             try: 
-                response = requests.post('http://127.0.0.1:5000/chek', json=self.chek)
+                response = requests.post('http://127.0.0.1:5000/check', json=self.chek)
             except:
                 return
             num_imt = math_func.imt(self)
@@ -99,6 +102,7 @@ class IMT_window(QtWidgets.QMainWindow, interface.our_imt.Ui_IMT):
                 self.close()
                 self.app = MainAPP(self.label_eda.objectName())
                 self.app.show()
+
 
 # окно регистрации
 class DialogWindow(interface.dialog.Ui_Register, QtWidgets.QDialog):
@@ -133,6 +137,7 @@ class DialogWindow(interface.dialog.Ui_Register, QtWidgets.QDialog):
         self.close()
         self.main = StartWindow()
         self.main.show()
+
 
 # стартовое окно
 class StartWindow(QtWidgets.QMainWindow, interface.Start_window.Ui_StartWindow):
